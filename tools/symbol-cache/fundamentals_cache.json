@@ -11380,5 +11380,362 @@
         "trailingPE": 218.6,
         "dividendYield": 0,
         "marketCap": 4519.20128
+    },
+    "NHI": {
+        "companyName": "National Health Investors, Inc.",
+        "previousClose": 76.55,
+        "trailingPE": 24.996775,
+        "dividendYield": 475.0,
+        "marketCap": 3756.023808
+    },
+    "NBIS": {
+        "companyName": "Nebius Group N.V.",
+        "previousClose": 229.18,
+        "trailingPE": 83.25097,
+        "dividendYield": 0,
+        "marketCap": 54745.526272
+    },
+    "ECHO": {
+        "companyName": "EchoStar Corporation",
+        "previousClose": 100.88,
+        "trailingPE": 0,
+        "dividendYield": 0,
+        "marketCap": 29416.071168
+    },
+    "CDE": {
+        "companyName": "Coeur Mining, Inc.",
+        "previousClose": 16.54,
+        "trailingPE": 13.951612,
+        "dividendYield": 23.0,
+        "marketCap": 17828.247552
+    },
+    "ALAB": {
+        "companyName": "Astera Labs, Inc.",
+        "previousClose": 430.86,
+        "trailingPE": 278.36987,
+        "dividendYield": 0,
+        "marketCap": 69663.612928
+    },
+    "RKLB": {
+        "companyName": "Rocket Lab Corporation",
+        "previousClose": 100.07,
+        "trailingPE": 0,
+        "dividendYield": 0,
+        "marketCap": 62769.291264
+    },
+    "VSNT": {
+        "companyName": "Versant Media Group, Inc.",
+        "previousClose": 36.36,
+        "trailingPE": 6.3250003,
+        "dividendYield": 395.0,
+        "marketCap": 5369.849856
+    },
+    "FA": {
+        "companyName": "First Advantage Corporation",
+        "previousClose": 18.895,
+        "trailingPE": 410.6,
+        "dividendYield": 0,
+        "marketCap": 3521.655552
+    },
+    "FDXF": {
+        "companyName": "FedEx Freight Holding Company, ",
+        "previousClose": 155.77,
+        "trailingPE": 33.145054,
+        "dividendYield": 0,
+        "marketCap": 22456.537088
+    },
+    "CRWV": {
+        "companyName": "CoreWeave, Inc.",
+        "previousClose": 85.685,
+        "trailingPE": 0,
+        "dividendYield": 0,
+        "marketCap": 44597.649408
+    },
+    "NTST": {
+        "companyName": "NetSTREIT Corp.",
+        "previousClose": 21.08,
+        "trailingPE": 180.5,
+        "dividendYield": 405.99999999999994,
+        "marketCap": 2115.591808
+    },
+    "CVLT": {
+        "companyName": "Commvault Systems, Inc.",
+        "previousClose": 147.02,
+        "trailingPE": 95.528656,
+        "dividendYield": 0,
+        "marketCap": 6212.424704
+    },
+    "EWM": {
+        "companyName": "iShares MSCI Malaysia Index Fun",
+        "previousClose": 26.66,
+        "trailingPE": 14.100032,
+        "dividendYield": 325.0,
+        "marketCap": 0.0
+    },
+    "EWU": {
+        "companyName": "iShares MSCI",
+        "previousClose": 45.94,
+        "trailingPE": 18.060762,
+        "dividendYield": 351.0,
+        "marketCap": 0.0
+    },
+    "TUR": {
+        "companyName": "iShares MSCI Turkey ETF",
+        "previousClose": 39.170002,
+        "trailingPE": 17.221455,
+        "dividendYield": 214.0,
+        "marketCap": 0.0
+    },
+    "GREK": {
+        "companyName": "Global X MSCI Greece ETF",
+        "previousClose": 75.67,
+        "trailingPE": 11.081982,
+        "dividendYield": 305.0,
+        "marketCap": 0.0
+    },
+    "VNM": {
+        "companyName": "VanEck Vietnam ETF",
+        "previousClose": 18.53,
+        "trailingPE": 16.761654,
+        "dividendYield": 20.0,
+        "marketCap": 0.0
+    },
+    "ARGT": {
+        "companyName": "Global X MSCI Argentina ETF",
+        "previousClose": 91.11,
+        "trailingPE": 14.10744,
+        "dividendYield": 79.0,
+        "marketCap": 0.0
+    },
+    "EIDO": {
+        "companyName": "iShares MSCI Indonesia ETF",
+        "previousClose": 11.28,
+        "trailingPE": 9.345485,
+        "dividendYield": 526.0,
+        "marketCap": 0.0
+    },
+    "VGK": {
+        "companyName": "Vanguard FTSEEuropean ETF",
+        "previousClose": 87.77,
+        "trailingPE": 17.985123,
+        "dividendYield": 278.0,
+        "marketCap": 0.0
+    },
+    "THD": {
+        "companyName": "iShares MSCI Thailand ETF",
+        "previousClose": 71.19,
+        "trailingPE": 16.120245,
+        "dividendYield": 274.0,
+        "marketCap": 0.0
+    },
+    "EWG": {
+        "companyName": "iShares MSCI Germany Index Fund",
+        "previousClose": 41.21,
+        "trailingPE": 17.60093,
+        "dividendYield": 156.0,
+        "marketCap": 0.0
+    },
+    "EWN": {
+        "companyName": "iShares MSCI Netherlands Index ",
+        "previousClose": 68.3,
+        "trailingPE": 19.339024,
+        "dividendYield": 428.0,
+        "marketCap": 0.0
+    },
+    "EWC": {
+        "companyName": "iShares MSCI Canada Index Fund",
+        "previousClose": 57.67,
+        "trailingPE": 19.129812,
+        "dividendYield": 132.0,
+        "marketCap": 0.0
+    },
+    "EWL": {
+        "companyName": "iShares MSCI Switzerland ETF",
+        "previousClose": 62.5,
+        "trailingPE": 23.314108,
+        "dividendYield": 162.0,
+        "marketCap": 0.0
+    },
+    "INDA": {
+        "companyName": "Ishares MSCI India ETF",
+        "previousClose": 49.21,
+        "trailingPE": 23.248135,
+        "dividendYield": 0.0,
+        "marketCap": 0.0
+    },
+    "KSA": {
+        "companyName": "iShares MSCI Saudi Arabia ETF",
+        "previousClose": 37.65,
+        "trailingPE": 14.85151,
+        "dividendYield": 278.0,
+        "marketCap": 0.0
+    },
+    "EMXC": {
+        "companyName": "iShares MSCI Emerging Markets e",
+        "previousClose": 98.53001,
+        "trailingPE": 19.34934,
+        "dividendYield": 204.0,
+        "marketCap": 0.0
+    },
+    "EWI": {
+        "companyName": "iShares MSCI Italy ETF",
+        "previousClose": 59.13,
+        "trailingPE": 14.3269205,
+        "dividendYield": 256.0,
+        "marketCap": 0.0
+    },
+    "ENOR": {
+        "companyName": "iShares MSCI Norway ETF",
+        "previousClose": 31.32,
+        "trailingPE": 14.454399,
+        "dividendYield": 229.99999999999997,
+        "marketCap": 0.0
+    },
+    "EWW": {
+        "companyName": "iShares MSCI Mexico ETF",
+        "previousClose": 75.27,
+        "trailingPE": 12.330496,
+        "dividendYield": 307.0,
+        "marketCap": 0.0
+    },
+    "EDEN": {
+        "companyName": "iShares MSCI Denmark ETF",
+        "previousClose": 111.318,
+        "trailingPE": 16.206043,
+        "dividendYield": 283.0,
+        "marketCap": 0.0
+    },
+    "KWT": {
+        "companyName": "iShares MSCI Kuwait ETF",
+        "previousClose": 36.37,
+        "trailingPE": 15.43464,
+        "dividendYield": 545.0,
+        "marketCap": 0.0
+    },
+    "EPHE": {
+        "companyName": "iShares MSCI Philippines ETF",
+        "previousClose": 24.15,
+        "trailingPE": 8.596867,
+        "dividendYield": 220.00000000000003,
+        "marketCap": 0.0
+    },
+    "EWA": {
+        "companyName": "iShares MSCI Australia Index Fu",
+        "previousClose": 27.7,
+        "trailingPE": 20.239027,
+        "dividendYield": 287.0,
+        "marketCap": 0.0
+    },
+    "AIA": {
+        "companyName": "iShares Asia 50 ETF",
+        "previousClose": 136.38,
+        "trailingPE": 18.2313,
+        "dividendYield": 109.00000000000001,
+        "marketCap": 0.0
+    },
+    "ENZL": {
+        "companyName": "iShares MSCI New Zealand ETF",
+        "previousClose": 44.74,
+        "trailingPE": 24.814005,
+        "dividendYield": 217.0,
+        "marketCap": 0.0
+    },
+    "EWP": {
+        "companyName": "iShares MSCI Spain ETF",
+        "previousClose": 58.97,
+        "trailingPE": 15.20619,
+        "dividendYield": 212.0,
+        "marketCap": 0.0
+    },
+    "EWS": {
+        "companyName": "iShares MSCI Singapore ETF",
+        "previousClose": 29.7,
+        "trailingPE": 16.711103,
+        "dividendYield": 382.0,
+        "marketCap": 0.0
+    },
+    "UAE": {
+        "companyName": "iShares MSCI UAE ETF",
+        "previousClose": 19.03,
+        "trailingPE": 8.52044,
+        "dividendYield": 409.0,
+        "marketCap": 0.0
+    },
+    "EPOL": {
+        "companyName": "iShares MSCI Poland ETF",
+        "previousClose": 38.69,
+        "trailingPE": 12.195749,
+        "dividendYield": 413.99999999999994,
+        "marketCap": 0.0
+    },
+    "ECH": {
+        "companyName": "iShares MSCI Chile ETF",
+        "previousClose": 39.39,
+        "trailingPE": 12.408287,
+        "dividendYield": 191.0,
+        "marketCap": 0.0
+    },
+    "EPU": {
+        "companyName": "iShares MSCI Peru and Global Ex",
+        "previousClose": 82.76,
+        "trailingPE": 14.031081,
+        "dividendYield": 138.0,
+        "marketCap": 0.0
+    },
+    "EWY": {
+        "companyName": "iShares MSCI South Korea ETF",
+        "previousClose": 185.5,
+        "trailingPE": 18.248297,
+        "dividendYield": 99.0,
+        "marketCap": 0.0
+    },
+    "ILF": {
+        "companyName": "iShares Latin America 40 ETF",
+        "previousClose": 33.54,
+        "trailingPE": 12.737442,
+        "dividendYield": 383.0,
+        "marketCap": 0.0
+    },
+    "EIS": {
+        "companyName": "iShares MSCI Israel ETF",
+        "previousClose": 120.6,
+        "trailingPE": 16.08177,
+        "dividendYield": 113.99999999999999,
+        "marketCap": 0.0
+    },
+    "EZA": {
+        "companyName": "iShares MSCI South Africa Index",
+        "previousClose": 62.73,
+        "trailingPE": 9.323128,
+        "dividendYield": 612.0,
+        "marketCap": 0.0
+    },
+    "GXG": {
+        "companyName": "Global X MSCI Colombia ETF",
+        "previousClose": 29.57,
+        "trailingPE": 9.962434,
+        "dividendYield": 641.0,
+        "marketCap": 0.0
+    },
+    "EWD": {
+        "companyName": "iShares MSCI Sweden ETF",
+        "previousClose": 49.66,
+        "trailingPE": 15.096976,
+        "dividendYield": 306.0,
+        "marketCap": 0.0
+    },
+    "QAT": {
+        "companyName": "iShares MSCI Qatar ETF",
+        "previousClose": 18.12,
+        "trailingPE": 10.762873,
+        "dividendYield": 347.0,
+        "marketCap": 0.0
+    },
+    "EWQ": {
+        "companyName": "iShares MSCI France Index Fund",
+        "previousClose": 44.96,
+        "trailingPE": 17.85366,
+        "dividendYield": 258.0,
+        "marketCap": 0.0
     }
 }

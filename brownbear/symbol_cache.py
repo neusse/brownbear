@@ -78,7 +78,8 @@ def fetch_timeseries(symbols, start=None, end=None, refresh=False, throttle_limi
 
     Returns
     -------
-    None
+    list of str
+        Symbols with a cache file after this call (downloaded or already present).
     """
     if start is None:
         start = datetime.datetime(2019, 1, 1)
@@ -93,6 +94,7 @@ def fetch_timeseries(symbols, start=None, end=None, refresh=False, throttle_limi
     symbol_cache_path.mkdir(parents=True, exist_ok=True)
 
     request_count = 0  # Counter to track the number of requests made
+    available = []
 
     for i, symbol in enumerate(symbols):
         print(symbol, end=' ')
@@ -115,6 +117,9 @@ def fetch_timeseries(symbols, start=None, end=None, refresh=False, throttle_limi
                 df.set_index('Date', inplace=True)
                 df.to_csv(filepath, encoding='utf-8')
 
+        if filepath.is_file():
+            available.append(symbol)
+
         request_count += 1
 
         # Throttle: wait after every `throttle_limit` requests
@@ -124,15 +129,15 @@ def fetch_timeseries(symbols, start=None, end=None, refresh=False, throttle_limi
             request_count = 0  # Reset the counter after waiting
 
     print()
+    return available
 
 
 def compile_timeseries(symbols, output_path='symbols-timeseries.csv'):
     """
     Compile one or more symbols' timeseries into a single dataframe.
 
-    The timeseries are read from the symbol cache only, so the
-    timeseries must exists for every symbol in `symbols`.  Otherwise
-    an exception will be thrown.
+    The timeseries are read from the symbol cache only.  Symbols without a
+    cache file are skipped with a message.
 
     The compiled timeseries has a column for each symbol.  Each row
     contains the daily closing prices for the symbols.  This timeseries
@@ -148,13 +153,19 @@ def compile_timeseries(symbols, output_path='symbols-timeseries.csv'):
 
     Returns
     -------
-    None
+    list of str
+        Symbols included in the compiled output.
     """
     output_path = Path(output_path)
     compiled_df = pd.DataFrame()
+    included = []
 
     for symbol in symbols:
         filepath = bb.SYMBOL_CACHE / (symbol + '.csv')
+        if not filepath.is_file():
+            print(f'Skipping {symbol}: no cache file')
+            continue
+        included.append(symbol)
         df = pd.read_csv(filepath)
         df.set_index('Date', inplace=True)
 
@@ -166,6 +177,7 @@ def compile_timeseries(symbols, output_path='symbols-timeseries.csv'):
         else:
             compiled_df = compiled_df.join(df, how='outer')
     compiled_df.to_csv(output_path, encoding='utf-8')
+    return included
 
 
 def remove_cache_symbols(symbols=None):

@@ -2,6 +2,7 @@
 Build investment-options.csv from investment-options-in.csv and symbol timeseries.
 """
 
+import csv
 from pathlib import Path
 
 import numpy as np
@@ -146,8 +147,7 @@ def load_sp500_universe(directory):
     )
     df.set_index('Symbol', inplace=True)
     df['Asset Class'] = df['Asset Class'].map(gics_map)
-    df = _yahoo_symbols(df)
-    return df.drop('FDXF', errors='ignore')
+    return _yahoo_symbols(df)
 
 
 def load_sp400_universe(directory):
@@ -178,8 +178,7 @@ def load_sp400_universe(directory):
     )
     df.set_index('Symbol', inplace=True)
     df['Asset Class'] = df['Asset Class'].map(gics_map)
-    df = _yahoo_symbols(df)
-    return df.drop('CVLT', errors='ignore')
+    return _yahoo_symbols(df)
 
 
 def load_sp600_universe(directory):
@@ -206,8 +205,7 @@ def load_sp600_universe(directory):
     )
     df.set_index('Symbol', inplace=True)
     df['Asset Class'] = df['Asset Class'].map(gics_map)
-    df = _yahoo_symbols(df)
-    return df.drop('VSNT', errors='ignore')
+    return _yahoo_symbols(df)
 
 
 def load_nasdaq100_universe(directory):
@@ -333,6 +331,23 @@ def _format_metrics_row(symbol, description, asset_class, metrics):
     )
 
 
+def _parse_investment_options_row(line):
+    """
+    Parse one investment-options CSV data row.
+
+    Parameters
+    ----------
+    line : str
+        Single CSV line from investment-options-in.csv.
+
+    Returns
+    -------
+    list of str
+        Parsed field values.
+    """
+    return next(csv.reader([line]))
+
+
 def format_investment_options_lines(input_lines, metrics):
     """
     Merge computed metrics into investment-options-in.csv lines.
@@ -357,14 +372,17 @@ def format_investment_options_lines(input_lines, metrics):
             out.append(line)
             continue
 
-        fields = [field.strip() for field in line.split(',')]
-        symbol = fields[0].strip('"')
+        fields = _parse_investment_options_row(line)
+        symbol = fields[0]
         if symbol == 'Investment Option':
             out.append(line)
             continue
 
+        if symbol not in metrics['annual_returns_3mo'].index:
+            continue
+
         out.append(_format_metrics_row(
-            symbol, fields[1].strip('"'), fields[2].strip('"'), metrics,
+            symbol, fields[1], fields[2], metrics,
         ))
     return out
 
@@ -469,12 +487,18 @@ def update_investment_options(
         symbols = list(universe_df.index)
     else:
         symbols = read_symbols_from_input(input_path)
-    fetch_timeseries(
+    requested = symbols
+    symbols = fetch_timeseries(
         symbols,
         refresh=refresh_timeseries,
         throttle_limit=throttle_limit,
         wait_time=wait_time,
     )
+    skipped = sorted(set(requested) - set(symbols))
+    if skipped:
+        print(f'Skipping symbols with no timeseries data: {", ".join(skipped)}')
+    if not symbols:
+        raise ValueError('No symbols with timeseries data')
     compile_timeseries(symbols, output_path=timeseries_path)
 
     timeseries_df = pd.read_csv(
@@ -485,6 +509,7 @@ def update_investment_options(
 
     input_lines = read_input_lines(input_path)
     if universe_df is not None:
+        universe_df = universe_df.loc[symbols]
         output_lines = format_investment_options_from_universe(
             input_lines, universe_df, metrics,
         )

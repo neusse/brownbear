@@ -97,6 +97,26 @@ class TestInvestmentOptions(unittest.TestCase):
         )
         self.assertIn('"3.00","3.00"', out[0])
 
+    def test_format_investment_options_lines_handles_commas_in_description(self):
+        metrics = {
+            'annual_returns_3mo': pd.Series({'TBRG': 1.0}),
+            'annual_returns_6mo': pd.Series({'TBRG': 2.0}),
+            'annual_returns_1yr': pd.Series({'TBRG': 3.0}),
+            'annual_returns_1_1yr': pd.Series({'TBRG': 4.0}),
+            'annual_returns_3yr': pd.Series({'TBRG': 5.0}),
+            'annual_returns_5yr': pd.Series({'TBRG': 6.0}),
+            'vola': pd.Series({'TBRG': 0.1}),
+            'ds_vola': pd.Series({'TBRG': 0.08}),
+            'std_dev_1yr': pd.Series({'TBRG': 0.11}),
+            'std_dev_3yr': pd.Series({'TBRG': 0.12}),
+            'std_dev_5yr': pd.Series({'TBRG': 0.13}),
+        }
+        out = format_investment_options_lines(
+            ['"TBRG","TruBridge, Inc.","US Stocks:Healthcare",""'],
+            metrics,
+        )
+        self.assertIn('"TBRG","TruBridge, Inc.","US Stocks:Healthcare"', out[0])
+
     @patch('brownbear.investment_options.compute_investment_metrics')
     @patch('brownbear.investment_options.compile_timeseries')
     @patch('brownbear.investment_options.fetch_timeseries')
@@ -121,6 +141,7 @@ class TestInvestmentOptions(unittest.TestCase):
                 timeseries.to_csv(output_path)
 
             mock_compile.side_effect = write_timeseries
+            mock_fetch.return_value = ['SPY']
             mock_metrics.return_value = {
                 'annual_returns_3mo': pd.Series({'SPY': 1.0}),
                 'annual_returns_6mo': pd.Series({'SPY': 2.0}),
