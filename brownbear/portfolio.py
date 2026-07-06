@@ -4,13 +4,20 @@ Portfolio analysis and optimization.
 
 import itertools
 import math
+import sys
 
 import numpy
 
 import brownbear as bb
 from brownbear.utility import (
+    ROOT,
     dotdict
 )
+
+_TOOLS_DIR = ROOT / 'tools'
+if str(_TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(_TOOLS_DIR))
+from symbol_replacements import normalize_portfolio_option  # noqa: E402
 
 
 class Portfolio:
@@ -76,6 +83,8 @@ def get_metric_lists(df, portfolio_option):
         ``volas``, ``ds_volas``, ``std_devs``, ``annual_returns``, and
         ``sharpe_ratios``.
     """
+
+    normalize_portfolio_option(portfolio_option)
 
     # Check for valid investment options.
     available_inv_opts = list(df['Investment Option'])

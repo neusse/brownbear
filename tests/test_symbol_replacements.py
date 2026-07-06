@@ -40,6 +40,22 @@ class TestSymbolReplacements(unittest.TestCase):
                 portfolio = sr.normalize_portfolio({'SATS': 2, 'SPY': 10})
                 self.assertEqual(portfolio, {'ECHO': 2, 'SPY': 10})
 
+    def test_normalize_portfolio_option(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'symbol-replacements.csv'
+            path.write_text(
+                'old_symbol,new_symbol,note,effective_date\n'
+                'SATS,ECHO,EchoStar ticker change,2026-06-01\n'
+            )
+            with patch.object(sr, 'REPLACEMENTS_FILE', path):
+                sr.load_replacements.cache_clear()
+                portfolio_option = {'Title': 'Higher Growth', 'SATS': 0.05, 'SPY': 0.95}
+                sr.normalize_portfolio_option(portfolio_option)
+                self.assertEqual(
+                    portfolio_option,
+                    {'Title': 'Higher Growth', 'ECHO': 0.05, 'SPY': 0.95},
+                )
+
     def test_lookup_quote_price_uses_old_key(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / 'symbol-replacements.csv'

@@ -7,6 +7,9 @@ from pathlib import Path
 REPLACEMENTS_FILE = Path(__file__).resolve().parent / 'symbol-replacements.csv'
 
 
+RESERVED_PORTFOLIO_KEYS = frozenset({'Title'})
+
+
 @lru_cache(maxsize=1)
 def load_replacements():
     """Return a dict of old_symbol -> new_symbol from symbol-replacements.csv."""
@@ -56,6 +59,28 @@ def normalize_portfolio(portfolio):
             log_replacement(str(symbol).strip().upper(), canonical)
         result[canonical] = result.get(canonical, 0) + int(quantity)
     return dict(sorted(result.items()))
+
+
+def normalize_portfolio_option(portfolio_option):
+    """
+    Rename portfolio option keys using symbol replacements and merge weights.
+   """
+    if not portfolio_option:
+        return portfolio_option
+
+    merged = {}
+    for key, weight in portfolio_option.items():
+        if key in RESERVED_PORTFOLIO_KEYS:
+            merged[key] = weight
+            continue
+        canonical = resolve_symbol(key)
+        if canonical != str(key).strip().upper():
+            log_replacement(str(key).strip().upper(), canonical)
+        merged[canonical] = merged.get(canonical, 0) + weight
+
+    portfolio_option.clear()
+    portfolio_option.update(merged)
+    return portfolio_option
 
 
 def lookup_quote_price(symbol, quote_per_investment):

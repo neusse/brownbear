@@ -22,6 +22,7 @@ from symbol_replacements import (  # noqa: E402
     log_replacement,
     lookup_quote_price,
     normalize_portfolio,
+    normalize_portfolio_option,
     resolve_symbol,
 )
 
@@ -70,8 +71,9 @@ def calc_cash_per_investment(capital, portfolio_option):
         A dictionary where keys are stock symbols and values are the allocated
         cash amounts.
     """
-    cash_per_investment = {k: float(capital * v) for k, v in portfolio_option.items()}
-    return  cash_per_investment
+    normalize_portfolio_option(portfolio_option)
+    cash_per_investment = {k: float(capital * v) for k, v in portfolio_option.items() if k != 'Title'}
+    return cash_per_investment
 
 
 def get_quote(symbols):

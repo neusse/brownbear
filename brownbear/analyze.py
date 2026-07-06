@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn
+import sys
 
 import brownbear as bb
 
@@ -24,6 +25,13 @@ from brownbear.weight import (
     check_allocation,
     assign_weights
 )
+
+from brownbear.utility import ROOT
+
+_TOOLS_DIR = ROOT / 'tools'
+if str(_TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(_TOOLS_DIR))
+from symbol_replacements import normalize_portfolio_option  # noqa: E402
 
 
 #####################################################################
@@ -378,6 +386,8 @@ def show_pie_charts(df, portfolio_option, charts=None):
     assert(set(charts).issubset(set(chart_choices))), \
            "Invalid Chart type in charts!"
 
+    normalize_portfolio_option(portfolio_option)
+
     df = df.copy()
     df = df[df['Investment Option'].isin(list(portfolio_option))]
     df.reset_index(drop=True, inplace=True)
@@ -413,6 +423,8 @@ def show_correlation_heatmap(df, portfolio_option):
     correlation_matrix : pd.DataFrame
         Correlation matrix.
     """
+    normalize_portfolio_option(portfolio_option)
+
     df = df.copy()
     df = df[df['Investment Option'].isin(list(portfolio_option))]
     df.reset_index(drop=True, inplace=True)
