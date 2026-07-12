@@ -53,6 +53,7 @@ from .trade import (
     get_quote,
     calculate_target_portfolio,
     rebalance_portfolio,
+    rebalance_sleeve,
     compare_portfolios,
     fetch_schwab_portfolio,
     verify_portfolio,

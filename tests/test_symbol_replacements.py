@@ -105,6 +105,15 @@ class TestSymbolReplacements(unittest.TestCase):
                 self.assertEqual(orders['sell'], {'ECHO': 2})
                 self.assertEqual(orders['buy'], {})
 
+    def test_rebalance_sleeve_ignores_other_holdings(self):
+        orders = bb.rebalance_sleeve(
+            current_portfolio={'SPY': 10, 'EWY': 5},
+            target_portfolio={'SPY': 8},
+            universe={'SPY'},
+        )
+        self.assertEqual(orders['sell'], {'SPY': 2})
+        self.assertEqual(orders['buy'], {})
+
     @patch('yfinance.Ticker')
     def test_get_quote_uses_replacement(self, mock_ticker):
         with tempfile.TemporaryDirectory() as tmp:

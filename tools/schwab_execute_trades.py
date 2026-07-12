@@ -61,8 +61,11 @@ def load_trades(path):
         sys.exit(f"Expected one account per CSV, found: {', '.join(accounts)}")
 
     df["quantity"] = df["quantity"].astype(int)
+    # Sells before buys; preserve CSV row order within each side (e.g. BIL last).
+    df = df.reset_index(drop=True)
+    df["_row"] = range(len(df))
     df["_side_order"] = df["side"].map({"SELL": 0, "BUY": 1})
-    df = df.sort_values(["_side_order", "symbol"]).drop(columns="_side_order")
+    df = df.sort_values(["_side_order", "_row"]).drop(columns=["_side_order", "_row"])
 
     resolved_symbols = []
     for symbol in df['symbol']:

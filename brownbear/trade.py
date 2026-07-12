@@ -243,6 +243,33 @@ def rebalance_portfolio(current_portfolio=None, target_portfolio=None):
     return rebalance_orders
 
 
+def rebalance_sleeve(current_portfolio, target_portfolio, universe):
+    """
+    Rebalance only symbols in ``universe``; all other holdings are untouched.
+
+    Use when multiple strategies share one account and each owns a disjoint
+    (or intentionally overlapping e.g. BIL) symbol set.
+
+    Parameters
+    ----------
+    current_portfolio : dict
+        Full account holdings (symbol → shares).
+    target_portfolio : dict
+        Desired shares for symbols this sleeve manages.
+    universe : iterable of str
+        Symbols this sleeve may buy or sell.
+
+    Returns
+    -------
+    dict
+        Same structure as :func:`rebalance_portfolio` (``sell`` and ``buy`` keys).
+    """
+    universe = set(universe)
+    current_sleeve = {symbol: current_portfolio.get(symbol, 0) for symbol in universe}
+    target_sleeve = {symbol: target_portfolio.get(symbol, 0) for symbol in universe}
+    return rebalance_portfolio(current_sleeve, target_sleeve)
+
+
 def compare_portfolios(current_portfolio=None, target_portfolio=None):
     """
     Compare current holdings to a target allocation.
@@ -320,6 +347,7 @@ def verify_portfolio(
     account_date=None,
     output_path=None,
     live_recheck_waits=LIVE_RECHECK_WAITS,
+    universe=None,
 ):
     """
     Verify Schwab holdings against a target allocation.
@@ -342,6 +370,9 @@ def verify_portfolio(
         Account JSON path for Schwab snapshots.
     live_recheck_waits : sequence of int, optional
         Seconds to wait between rechecks after live trades.
+    universe : iterable of str, optional
+        When set, only symbols in this set are compared. Use for multi-sleeve
+        accounts where other strategies' holdings should be ignored.
 
     Returns
     -------
@@ -355,8 +386,13 @@ def verify_portfolio(
     if output_path is None:
         output_path = Path(f'account-{account_date}-post-trade.json')
 
+    def _filter_comparison(comparison_df):
+        if universe is None:
+            return comparison_df
+        return comparison_df.loc[comparison_df['symbol'].isin(set(universe))]
+
     portfolio = fetch_schwab_portfolio(account_suffix, output_path)
-    comparison = compare_portfolios(portfolio, target_portfolio)
+    comparison = _filter_comparison(compare_portfolios(portfolio, target_portfolio))
     mismatches = comparison.loc[comparison['delta'] != 0]
 
     if mismatches.empty:
@@ -369,7 +405,7 @@ def verify_portfolio(
             print(f'Waiting {wait_seconds}s before rechecking...')
             time.sleep(wait_seconds)
             portfolio = fetch_schwab_portfolio(account_suffix, output_path)
-            comparison = compare_portfolios(portfolio, target_portfolio)
+            comparison = _filter_comparison(compare_portfolios(portfolio, target_portfolio))
             mismatches = comparison.loc[comparison['delta'] != 0]
             if mismatches.empty:
                 print('Positions match target portfolio.')

@@ -68,6 +68,22 @@ class TestVerifyPortfolio(unittest.TestCase):
         self.assertEqual(mock_sleep.call_count, 2)
         self.assertEqual(comparison.loc[comparison['symbol'] == 'SPY', 'delta'].iloc[0], -2)
 
+    @patch('brownbear.trade.fetch_schwab_portfolio')
+    @patch('brownbear.trade.time.sleep')
+    def test_universe_filters_other_sleeve_holdings(self, mock_sleep, mock_fetch):
+        mock_fetch.return_value = {'SPY': 10, 'QQQ': 5}
+        target = {'SPY': 10, 'QQQ': 0}
+
+        comparison = bb.verify_portfolio(
+            '350',
+            target,
+            execute_live_trades=False,
+            universe={'SPY'},
+        )
+
+        self.assertEqual(list(comparison['symbol']), ['SPY'])
+        self.assertTrue((comparison['delta'] == 0).all())
+
 
 if __name__ == '__main__':
     unittest.main()
