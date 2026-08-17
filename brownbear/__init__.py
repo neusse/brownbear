@@ -61,7 +61,8 @@ from .trade import (
     rebalance_orders_to_dataframe,
     write_rebalance_orders_csv,
     calculate_free_cash,
-    allocate_free_cash
+    allocate_free_cash,
+    remove_do_not_include,
 )
 
 from .utility import (

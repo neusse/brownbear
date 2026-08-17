@@ -56,6 +56,30 @@ class TestSymbolReplacements(unittest.TestCase):
                     {'Title': 'Higher Growth', 'ECHO': 0.05, 'SPY': 0.95},
                 )
 
+    def test_normalize_portfolio_option_preserves_asset_subclass_keys(self):
+        portfolio_option = {
+            'US Stocks:Financials': 0,
+            'US Stocks:Technology': 0,
+        }
+        sr.normalize_portfolio_option(portfolio_option)
+        self.assertEqual(
+            portfolio_option,
+            {'US Stocks:Financials': 0, 'US Stocks:Technology': 0},
+        )
+
+    def test_remove_do_not_include(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'do-not-include.csv'
+            path.write_text(
+                'symbol,note,effective_date\n'
+                'WBD,Warner Bros Discovery - do not include,\n'
+            )
+            portfolio_option = {'Title': 'Test', 'SPY': 0.5, 'WBD': 0.5}
+            with patch.object(sr, 'DO_NOT_INCLUDE_FILE', path):
+                sr.load_do_not_include.cache_clear()
+                sr.remove_do_not_include(portfolio_option, verbose=False)
+                self.assertEqual(portfolio_option, {'Title': 'Test', 'SPY': 0.5})
+
     def test_lookup_quote_price_uses_old_key(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / 'symbol-replacements.csv'

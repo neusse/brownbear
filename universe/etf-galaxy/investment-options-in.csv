@@ -111,6 +111,7 @@
 
 # Investment Options - Real Estate ETFs
 "IYR","U.S. Real Estate ETF","Real Estate:REIT"
+"SCHH","Schwab U.S. REIT ETF","Real Estate:REIT"
 "VNQ","Real Estate Index Fund ETF","Real Estate:Real Estate Funds"
 
 # Investment Options - Commodities ETFs
@@ -144,6 +145,11 @@
 "FBTC","Fidelity Wise Origin Bitcoin Fund","Currencies:Cryptocurrency"
 "ETHE","Grayscale Ethereum Trust ETF","Currencies:Cryptocurrency"
 "BITW","Bitwise 10 Crypto Index Fund","Currencies:Cryptocurrency"
+
+# Investment Options - Managed Futures ETFs
+"DBMF","iMGP DBi Managed Futures Strategy ETF","Managed Futures"
+"KMLM","KraneShares Mount Lucas Managed Futures Index Strategy ETF","Managed Futures"
+"CTA","Simplify Managed Futures Strategy ETF","Managed Futures"
 
 # Investment Options - Special
 "GDX","Gold Miners ETF","US Stocks:Industrials"

@@ -74,17 +74,6 @@ if ! command -v jupyter >/dev/null 2>&1; then
     exit 1
 fi
 
-if [[ "${DELETE_SYMBOL_CACHE}" == true ]]; then
-    echo "Step 0: deleting symbol-cache/"
-    rm -rf "${ROOT}/symbol-cache"
-    RESET_PROGRESS=true
-fi
-
-if [[ "${RESET_PROGRESS}" == true && -f "${STATE_FILE}" ]]; then
-    rm -f "${STATE_FILE}"
-    echo "Cleared checkpoint: ${STATE_FILE}"
-fi
-
 is_done() {
     [[ -f "${STATE_FILE}" ]] && grep -Fxq "$1" "${STATE_FILE}"
 }
@@ -95,6 +84,17 @@ mark_done() {
 
 cleanup_kernels() {
     "${ROOT}/tools/cleanup-kernels.sh"
+}
+
+reset_fundamentals() {
+    python3 - <<'PY'
+import brownbear as bb
+
+if bb.reset_fundamentals_cache():
+    print("Deleted fundamentals cache")
+else:
+    print("No fundamentals cache to delete")
+PY
 }
 
 run_notebook() {
@@ -126,20 +126,10 @@ run_fundamentals() {
 
     echo
     echo "=== Running step 3: get_symbol_fundamentals ==="
-    python3 - "${RESET_FUNDAMENTALS_CACHE}" <<'PY'
-import sys
-
+    python3 - <<'PY'
 import brownbear as bb
 
-reset_cache = sys.argv[1] == "true"
-if reset_cache:
-    deleted = bb.reset_fundamentals_cache()
-    if deleted:
-        print("Deleted fundamentals cache")
-    else:
-        print("No fundamentals cache to delete")
-
-df = bb.get_symbol_fundamentals(throttle_limit=100, wait_time=30, reset_cache=False)
+df = bb.get_symbol_fundamentals(throttle_limit=100, wait_time=30)
 out = bb.ROOT / "tools" / "symbol-cache" / "fundamentals.csv"
 df.to_csv(out, encoding="utf-8")
 print(f"Wrote {out}")
@@ -147,6 +137,22 @@ PY
     mark_done "${FUNDAMENTALS_STEP}"
     cleanup_kernels
 }
+
+if [[ "${DELETE_SYMBOL_CACHE}" == true ]]; then
+    echo "Step 0: deleting symbol-cache/"
+    rm -rf "${ROOT}/symbol-cache"
+    echo "Step 0: resetting fundamentals cache"
+    reset_fundamentals
+    RESET_PROGRESS=true
+elif [[ "${RESET_FUNDAMENTALS_CACHE}" == true ]]; then
+    echo "Resetting fundamentals cache"
+    reset_fundamentals
+fi
+
+if [[ "${RESET_PROGRESS}" == true && -f "${STATE_FILE}" ]]; then
+    rm -f "${STATE_FILE}"
+    echo "Cleared checkpoint: ${STATE_FILE}"
+fi
 
 echo "Step 1: asset-class-galaxy/asset-classes.ipynb"
 run_notebook "universe/asset-class-galaxy/asset-classes.ipynb"

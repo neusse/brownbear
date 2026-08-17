@@ -71,7 +71,7 @@ see [tools/update-universe.sh](../update-universe.sh) with `--full`.
 | `get-symbol-metadata.ipynb` | Report start date, end date, and years of data per cached symbol |
 | `get-symbol-fundamentals.ipynb` | Build `fundamentals.csv` and `fundamentals_cache.json` from Yahoo |
 
-`get-symbol-fundamentals.ipynb` is **step 3** in [UPDATE](../../UPDATE) and is
+`get-symbol-fundamentals.ipynb` is **step 3** in [UPDATE.md](../../UPDATE.md) and is
 run automatically by [tools/update-universe.sh](../update-universe.sh).
 
 ## Fundamentals output files
@@ -82,7 +82,8 @@ run automatically by [tools/update-universe.sh](../update-universe.sh).
 | `fundamentals_cache.json` | Incremental cache for `bb.get_symbol_fundamentals()` |
 
 Reset the fundamentals cache with `bb.reset_fundamentals_cache()` or
-`./tools/update-universe.sh --reset-fundamentals-cache`.
+`./tools/update-universe.sh --reset-fundamentals-cache`. Deleting `symbol-cache/`
+(``--full`` or ``--delete-symbol-cache``) also resets fundamentals.
 
 ## Related
 

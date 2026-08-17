@@ -5,9 +5,25 @@ from functools import lru_cache
 from pathlib import Path
 
 REPLACEMENTS_FILE = Path(__file__).resolve().parent / 'symbol-replacements.csv'
+DO_NOT_INCLUDE_FILE = Path(__file__).resolve().parent / 'do-not-include.csv'
 
 
 RESERVED_PORTFOLIO_KEYS = frozenset({'Title'})
+
+
+def _looks_like_trading_symbol(key):
+    """
+    Return True when key should be treated as a ticker for replacements.
+
+    Asset class and subclass names (for example ``US Stocks:Financials``)
+    contain spaces or colons and must not be uppercased like tickers.
+    """
+    key = str(key).strip()
+    if not key or key in RESERVED_PORTFOLIO_KEYS:
+        return False
+    if any(ch in key for ch in (' ', ':')):
+        return False
+    return True
 
 
 @lru_cache(maxsize=1)
@@ -38,6 +54,48 @@ def resolve_symbol(symbol):
 def resolve_symbols(symbols):
     """Return {original: resolved} for a list of symbols."""
     return {symbol: resolve_symbol(symbol) for symbol in symbols}
+
+
+@lru_cache(maxsize=1)
+def load_do_not_include():
+    """Return symbols to exclude from strategy portfolio_option dicts."""
+    blocked = set()
+    if not DO_NOT_INCLUDE_FILE.is_file():
+        return frozenset(blocked)
+
+    with DO_NOT_INCLUDE_FILE.open(newline='') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            symbol = row.get('symbol', '').strip().upper()
+            if symbol:
+                blocked.add(resolve_symbol(symbol))
+    return frozenset(blocked)
+
+
+def remove_do_not_include(portfolio_option, verbose=True):
+    """
+    Remove do-not-include symbols from a portfolio_option dict in place.
+
+    Skips reserved keys (for example ``Title``) and non-ticker keys such as
+    asset subclass names.
+    """
+    if not portfolio_option:
+        return portfolio_option
+
+    blocked = load_do_not_include()
+    if not blocked:
+        return portfolio_option
+
+    for key in list(portfolio_option.keys()):
+        if key in RESERVED_PORTFOLIO_KEYS or not _looks_like_trading_symbol(key):
+            continue
+        canonical = resolve_symbol(key)
+        if canonical in blocked:
+            if verbose:
+                print(f'Do-not-include: removing {key} from portfolio_option')
+            del portfolio_option[key]
+
+    return portfolio_option
 
 
 def log_replacement(old_symbol, new_symbol):
@@ -71,6 +129,9 @@ def normalize_portfolio_option(portfolio_option):
     merged = {}
     for key, weight in portfolio_option.items():
         if key in RESERVED_PORTFOLIO_KEYS:
+            merged[key] = weight
+            continue
+        if not _looks_like_trading_symbol(key):
             merged[key] = weight
             continue
         canonical = resolve_symbol(key)

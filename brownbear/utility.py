@@ -103,7 +103,15 @@ def get_wikipedia_table(title, filename, match, use_cache=False):
             timeout=30,
         )
         response.raise_for_status()
-        df = pd.read_html(io.StringIO(response.text), header=0, match=match)[0]
+        try:
+            tables = pd.read_html(io.StringIO(response.text), header=0, match=match)
+        except ValueError as exc:
+            raise ValueError(
+                f"No Wikipedia table matching {match!r} on {url}. "
+                "Wikipedia may have moved the list to a separate page "
+                "(for example 'List of NASDAQ-100 companies')."
+            ) from exc
+        df = tables[0]
         df.to_csv(filename, header=True, index=False, encoding='utf-8')
 
     return pd.read_csv(filename)

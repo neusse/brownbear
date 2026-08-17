@@ -1,4 +1,4 @@
-Ticker,Company,ICB Industry[15],ICB Subsector[15]
+Ticker,Company,ICB Industry[1],ICB Subsector[1]
 ADBE,Adobe Inc.,Technology,Software
 AMD,Advanced Micro Devices,Technology,Semiconductors
 ABNB,Airbnb,Consumer Discretionary,Diversified Commercial Services
@@ -36,14 +36,14 @@ DDOG,Datadog,Technology,Software
 DXCM,DexCom,Health Care,Medical/Dental Instruments
 FANG,Diamondback Energy,Energy,Oil & Gas Production
 DASH,DoorDash,Technology,Software
-EA,Electronic Arts,Consumer Discretionary,Miscellaneous Amusement & Recreation Services
 EXC,Exelon,Utilities,Power Generation
 FAST,Fastenal,Industrials,Construction & Materials
 FER,Ferrovial,Industrials,"Military, Government, Technical"
 FTNT,Fortinet,Technology,Computer Peripheral Equipment
 GEHC,GE HealthCare,Health Care,Medical Electronics
 GILD,Gilead Sciences,Health Care,Biotechnology
-HON,Honeywell Technologies,Industrials,Aerospace
+HONA,Honeywell Aerospace,Industrials,Aerospace
+HON,Honeywell Technologies,Industrials,Diversified Industrials
 IDXX,Idexx Laboratories,Health Care,Biotechnology
 INTC,Intel,Technology,Semiconductors
 INTU,Intuit,Technology,Computer Software
@@ -86,6 +86,7 @@ ROST,Ross Stores,Consumer Discretionary,Clothing/Shoe/Accessory Stores
 SNDK,Sandisk,Technology,Electronic Components
 STX,Seagate Technology,Technology,Electronic Components
 SHOP,Shopify,Technology,Software
+SPCX,SpaceX,Telecommunications,Telecommunications Services
 SBUX,Starbucks,Consumer Discretionary,Restaurants
 SNPS,Synopsys,Technology,Software
 TMUS,T-Mobile US,Telecommunications,Telecommunications Services

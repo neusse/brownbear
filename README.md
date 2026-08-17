@@ -91,7 +91,7 @@ Maintainers can refresh the full dataset with [tools/update-universe.sh](tools/u
 ./tools/update-universe.sh             # resume after an error
 ```
 
-See [UPDATE](UPDATE) for step details.
+See [UPDATE.md](UPDATE.md) for step details.
 
 ## Documentation
 

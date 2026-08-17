@@ -6,7 +6,7 @@ Scripts and notebooks for maintaining brownbear data and running monthly strateg
 
 ### `update-universe.sh`
 
-Restartable batch run for [UPDATE](../UPDATE) steps 1–4 (universe galaxies, fundamentals, portfolios).
+Restartable batch run for [UPDATE.md](../UPDATE.md) steps 1–4 (universe galaxies, fundamentals, portfolios).
 
 ```bash
 ./tools/update-universe.sh --full      # first run: clean caches, run all steps
@@ -16,8 +16,8 @@ Restartable batch run for [UPDATE](../UPDATE) steps 1–4 (universe galaxies, fu
 | Flag | Effect |
 |------|--------|
 | `--full` | `--delete-symbol-cache`, `--reset-fundamentals-cache`, `--reset-progress` |
-| `--delete-symbol-cache` | Step 0: delete `symbol-cache/` and clear progress |
-| `--reset-fundamentals-cache` | Delete `fundamentals_cache.json` before step 3 |
+| `--delete-symbol-cache` | Step 0: delete `symbol-cache/`, reset fundamentals cache, and clear progress |
+| `--reset-fundamentals-cache` | Reset fundamentals cache at start (before step 3) |
 | `--reset-progress` | Ignore `tools/.update-universe.state` and re-run all steps |
 
 Progress is saved in `tools/.update-universe.state` (gitignored). Completed notebooks are skipped on re-run.
@@ -36,7 +36,7 @@ See [symbol-cache/README.md](symbol-cache/README.md) for the cache layout and no
 
 Notebooks to refresh fundamentals, metadata, and timeseries cache:
 
-- `get-symbol-fundamentals.ipynb` — step 3 in UPDATE (also run by `update-universe.sh`)
+- `get-symbol-fundamentals.ipynb` — step 3 in UPDATE.md (also run by `update-universe.sh`)
 - `get-symbol-metadata.ipynb`, `get-symbol-timeseries.ipynb`, `update-cache-symbols.ipynb`
 
 ## Schwab API
@@ -138,6 +138,17 @@ Maps retired tickers to their current trading symbols for the trade workflow
 ```csv
 old_symbol,new_symbol,note,effective_date
 SATS,ECHO,EchoStar ticker change,2026-06-01
+```
+
+### `do-not-include.csv`
+
+Symbols excluded from strategy `portfolio_option` dicts. Strategy notebooks call
+`bb.remove_do_not_include(portfolio_option)` after copying the portfolio. Add a
+row when a symbol should never be held by any strategy:
+
+```csv
+symbol,note,effective_date
+WBD,Warner Bros Discovery - do not include,
 ```
 
 ## Monthly strategy workflow (example: 350 IRA)

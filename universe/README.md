@@ -111,5 +111,5 @@ See `bb.update_investment_options()` and `bb.compute_investment_metrics()` in
 ## Maintainer workflow
 
 Galaxy notebooks are run in bulk by [tools/update-universe.sh](../tools/update-universe.sh).
-See [UPDATE](../UPDATE) for the full step order. Run `asset-class-galaxy/asset-classes.ipynb`
+See [UPDATE.md](../UPDATE.md) for the full step order. Run `asset-class-galaxy/asset-classes.ipynb`
 first, then the remaining universe notebooks.

@@ -23,6 +23,7 @@ from symbol_replacements import (  # noqa: E402
     lookup_quote_price,
     normalize_portfolio,
     normalize_portfolio_option,
+    remove_do_not_include,
     resolve_symbol,
 )
 

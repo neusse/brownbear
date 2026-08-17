@@ -351,20 +351,35 @@ def _fundamentals_cache_path():
     return _fundamentals_dir() / 'fundamentals_cache.json'
 
 
+def _fundamentals_csv_path():
+    """
+    Return the path to the compiled fundamentals CSV file.
+
+    Returns
+    -------
+    Path
+        ``fundamentals.csv`` under :func:`_fundamentals_dir`.
+    """
+    return _fundamentals_dir() / 'fundamentals.csv'
+
+
 def reset_fundamentals_cache():
     """
-    Delete the fundamentals JSON cache used by get_symbol_fundamentals.
+    Delete fundamentals cache files used by get_symbol_fundamentals.
+
+    Removes ``fundamentals_cache.json`` and the compiled ``fundamentals.csv``.
 
     Returns
     -------
     bool
-        True if a cache file was deleted, False if none existed.
+        True if any file was deleted, False if none existed.
     """
-    cache_file = _fundamentals_cache_path()
-    if cache_file.exists():
-        cache_file.unlink()
-        return True
-    return False
+    deleted = False
+    for path in (_fundamentals_cache_path(), _fundamentals_csv_path()):
+        if path.exists():
+            path.unlink()
+            deleted = True
+    return deleted
 
 
 def get_symbol_fundamentals(symbols=None, throttle_limit=100, wait_time=30, reset_cache=False):
