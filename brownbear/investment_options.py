@@ -110,6 +110,7 @@ def load_dow30_universe(directory):
     df.drop(
         columns=['Exchange', 'Date added', 'Notes', 'Index weighting'],
         inplace=True,
+        errors='ignore',
     )
     df.rename(
         columns={'Company': 'Description', 'Sector': 'Asset Class'},

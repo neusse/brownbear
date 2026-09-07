@@ -81,7 +81,7 @@ def get_wikipedia_table(title, filename, match, use_cache=False):
     Parameters
     ----------
     title : str
-        Wikipedia page title, e.g. ``'Dow Jones Industrial Average'``.
+        Wikipedia page title, e.g. ``'List of Dow Jones Industrial Average companies'``.
     filename : str or Path
         CSV file used to cache the table.
     match : str
