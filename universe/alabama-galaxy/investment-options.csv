@@ -4,11 +4,10 @@
 "Investment Option","Description","Asset Class","3 mo","6 mo","1 Yr","1-1 Yr","3 Yr","5 Yr","Vola","DS Vola","SD 1 Yr","SD 3 Yr","SD 5 Yr"
 
 # Investment Options
-"ROAD","Construction Partners Inc","US Stocks:Industrials","-39.60","-19.52","-0.48","1.85","52.24","25.52","43.54","25.27","40.94","40.02","38.17"
-"EHC","Encompass Health","US Stocks:Healthcare","37.43","35.30","3.16","6.95","18.77","13.19","27.73","11.17","30.00","24.43","28.46"
-"RF","Regions Financial","US Stocks:Financials","52.86","27.38","22.51","22.35","20.95","14.85","23.74","12.85","20.10","28.11","28.62"
-"VMC","Vulcan Materials Company","US Stocks:Materials","-29.00","-17.47","-0.26","5.88","7.66","9.90","31.81","21.74","23.41","24.97","26.09"
-"ADTN","ADTRAN","US Stocks:Technology","-93.68","-23.07","-11.46","-13.86","-5.72","-16.06","71.88","57.40","70.43","65.67","60.47"
-"TBRG","TruBridge, Inc.","US Stocks:Healthcare","nan","nan","nan","nan","nan","nan","0.00","0.00","nan","nan","nan"
-"MPT","Medical Properties Trust, Inc.","US Stocks:Real Estate","-24.57","-5.15","19.38","19.77","-16.63","-19.33","25.11","11.26","34.36","55.55","50.00"
-"LAKE","Lakeland Industries, Inc.","US Stocks:Consumer Staples","65.06","49.47","-23.30","-25.69","-8.97","-14.26","40.49","22.14","53.13","49.33","46.12"
+"ROAD","Construction Partners Inc","US Stocks:Industrials","-20.15","-32.86","-9.22","-6.16","47.93","27.36","82.10","27.46","36.47","38.99","38.07"
+"EHC","Encompass Health","US Stocks:Healthcare","71.20","26.46","-1.51","-1.24","20.78","15.50","45.64","8.05","29.51","24.55","28.49"
+"RF","Regions Financial","US Stocks:Financials","43.01","23.39","15.08","16.76","22.65","13.21","17.51","13.32","19.43","27.51","28.58"
+"VMC","Vulcan Materials Company","US Stocks:Materials","-10.71","-20.68","-5.01","-5.26","8.95","9.27","28.73","14.00","23.05","25.08","26.14"
+"ADTN","ADTRAN","US Stocks:Technology","-95.27","-42.72","-17.34","-16.06","-1.79","-18.70","57.65","39.67","70.81","65.43","60.44"
+"MPT","Medical Properties Trust, Inc.","US Stocks:Real Estate","-55.69","-45.64","-0.60","0.21","-9.28","-20.72","49.57","40.94","35.86","53.47","50.22"
+"LAKE","Lakeland Industries, Inc.","US Stocks:Consumer Staples","44.35","67.27","-23.09","-22.61","-5.92","-12.16","41.07","29.67","52.74","49.16","45.98"
